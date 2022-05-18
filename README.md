@@ -1,2 +1,2 @@
 # dsltyyz-xuper
-baidu xuper learning
+baidu xuperchain learning
