@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.dsltyyz.xuper</groupId>
+    <artifactId>dsltyyz-xuper</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>dsltyyz-xuper</name>
+    <description>Dsltyyz Xuper</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <modules>
+        <module>dsltyyz-xuperchain</module>
+    </modules>
+
+    <properties>
+        <!--系统-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <!--包-->
+        <dsltyyz-bundle.version>1.0.0</dsltyyz-bundle.version>
+        <dsltyyz-xuper.version>1.0.0-SNAPSHOT</dsltyyz-xuper.version>
+        <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
+        <alibaba.version>2.2.3.RELEASE</alibaba.version>
+
+        <!--组件-->
+        <druid.version>1.2.8</druid.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <springfox-boot.version>3.0.0</springfox-boot.version>
+        <fastjson.version>1.2.54</fastjson.version>
+        <jwt.version>0.9.1</jwt.version>
+        <feign-form-spring.version>3.8.0</feign-form-spring.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
+        <knife4j.version>3.0.3</knife4j.version>
+        <xuper.version>0.2.0</xuper.version>
+
+        <!--插件-->
+        <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!--spring-cloud 包-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring-cloud-alibaba 包 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--自定义-->
+            <dependency>
+                <groupId>com.dsltyyz.bundle</groupId>
+                <artifactId>dsltyyz-dependencies</artifactId>
+                <version>${dsltyyz-bundle.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-boot.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baidu.xuper</groupId>
+                <artifactId>xuper-java-sdk</artifactId>
+                <version>${xuper.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
