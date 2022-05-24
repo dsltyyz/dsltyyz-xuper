@@ -1,5 +1,6 @@
 package com.dsltyyz.xuper.xuperchain.component;
 
+import com.baidu.xuper.api.Account;
 import com.baidu.xuper.api.XuperClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,14 +18,22 @@ public class XuperComponent {
     @Value("${xuper.client}")
     private String target;
 
+    @Value("${xuper.account-mnemonic}")
+    private String mnemonic;
+
     private XuperClient xuperClient;
+    private Account account;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         xuperClient = new XuperClient(target);
+        account = Account.retrieve(mnemonic, 2);
     }
 
     public XuperClient getClient(){
         return xuperClient;
+    }
+    public Account getAccount(){
+        return account;
     }
 }

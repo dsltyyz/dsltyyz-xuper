@@ -54,16 +54,16 @@ public class XuperchainController {
 
     @ApiOperation(value = "获取合约账户余额")
     @GetMapping("contractAccount/balance")
-    public CommonResponse getBalance(@RequestParam String contractAccount) {
+    public CommonResponse<BigInteger> getBalance(@RequestParam String contractAccount) {
         XuperClient client = xuperComponent.getClient();
-        return new CommonResponse(client.getBalance(contractAccount));
+        return new CommonResponse<>(client.getBalance(contractAccount));
     }
 
     @ApiOperation(value = "获取合约账户余额详情")
     @GetMapping("contractAccount/balanceDetail")
-    public CommonResponse getBalanceDetails(@RequestParam String contractAccount) {
+    public CommonResponse<?> getBalanceDetails(@RequestParam String contractAccount) {
         XuperClient client = xuperComponent.getClient();
-        return new CommonResponse(client.getBalanceDetails(contractAccount));
+        return new CommonResponse<>(client.getBalanceDetails(contractAccount));
     }
 
     @ApiOperation(value = "向合约账户余额转账")
@@ -75,13 +75,13 @@ public class XuperchainController {
         return new CommonResponse();
     }
 
-    @ApiOperation(value = "合约账户部署合约")
+    /*@ApiOperation(value = "合约账户部署合约")
     @PostMapping("contractAccount/contract")
     public CommonResponse deployContract(@RequestParam String contractAccount) {
         XuperClient client = xuperComponent.getClient();
 //        client.deployWasmContract()
         return new CommonResponse();
-    }
+    }*/
 
     @ApiOperation(value = "合约账户调用合约")
     @PostMapping("contract/{contract}/{method}")

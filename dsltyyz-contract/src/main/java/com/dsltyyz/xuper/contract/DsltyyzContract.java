@@ -4,6 +4,7 @@ import com.baidu.xuper.*;
 
 /**
  * 自定义合约
+ *
  * @author dsltyyz
  * @date 2022-5-18
  */
@@ -16,7 +17,7 @@ public class DsltyyzContract implements Contract {
     }
 
     @ContractMethod
-    public Response calcFib(Context context){
+    public Response calcFib(Context context) {
         byte[] key = context.args().get("key");
         if (key == null) {
             return Response.error("missing key");
@@ -26,11 +27,11 @@ public class DsltyyzContract implements Contract {
         return Response.ok(fn.toString().getBytes());
     }
 
-    private Long fib(Integer n){
-        if(n==1 ||n==2){
+    private Long fib(Integer n) {
+        if (n == 1 || n == 2) {
             return 1L;
-        }else{
-            return fib(n-1)+fib(n-2);
+        } else {
+            return fib(n - 1) + fib(n - 2);
         }
     }
 

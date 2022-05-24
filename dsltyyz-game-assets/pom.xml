@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.dsltyyz.xuper</groupId>
-    <artifactId>dsltyyz-contract</artifactId>
+    <artifactId>dsltyyz-game-assets</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -87,7 +87,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.dsltyyz.xuper.contract.DsltyyzContract</mainClass>
+                            <mainClass>com.dsltyyz.xuper.contract.GameAssetsContract</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

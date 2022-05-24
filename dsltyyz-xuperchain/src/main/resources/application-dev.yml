@@ -15,3 +15,4 @@ spring:
         min-idle: 5       # 连接池中的最小空闲连接
 xuper:
   client: 192.168.125.15:37101
+  account-mnemonic: mechanic fragile breeze enhance velvet inform test hawk child fault scrub call
