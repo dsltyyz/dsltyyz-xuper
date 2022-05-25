@@ -1,4 +1,4 @@
-#百度超级链-baidu xuperchain
+# 百度超级链-baidu xuperchain
 **官方文档 [传送门](https://xuper.baidu.com/n/xuperdoc/index.html)** 
 ## 1.环境安装
 ### 1.1 系统及语言
