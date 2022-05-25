@@ -47,7 +47,7 @@ gcc -v
 #gcc version 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC)
 ~~~
 ### 1.5 xuperchain环境
-xuperchain-release-v5.2.zip [传送门](https://github.com/xuperchain/xuperchain/tree/master) 
+**xuperchain-release-v5.2.zip [传送门](https://github.com/xuperchain/xuperchain/tree/master) **
 ~~~
 #1.解压
 unzip xuperchain-release-v5.2.zip
