@@ -1,6 +1,6 @@
 #百度超级链-baidu xuperchain
-官方文档 [传送门](https://xuper.baidu.com/n/xuperdoc/index.html) 
-##1.环境安装
+**官方文档 [传送门](https://xuper.baidu.com/n/xuperdoc/index.html)** 
+## 1.环境安装
 ### 1.1 系统及语言
 ~~~
 操作系统 centos7
@@ -15,7 +15,7 @@ yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel
 java -version
 ~~~
 ### 1.3 go语言编译环境 
-go1.18.2.linux-amd64.tar.gz [传送门](https://golang.google.cn/dl) 
+**go1.18.2.linux-amd64.tar.gz [传送门](https://golang.google.cn/dl)**
 ~~~
 #1.解压
 tar -C /usr/local -zxf go1.18.2.linux-amd64.tar.gz
