@@ -14,9 +14,6 @@
 
     <name>dsltyyz-xuperchain</name>
     <description>百度超级链</description>
-    <modules>
-        <module>../dsltyyz-contract</module>
-    </modules>
 
     <dependencies>
         <dependency>
