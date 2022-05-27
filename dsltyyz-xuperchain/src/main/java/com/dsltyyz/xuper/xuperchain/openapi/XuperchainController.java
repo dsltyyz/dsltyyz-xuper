@@ -3,17 +3,25 @@ package com.dsltyyz.xuper.xuperchain.openapi;
 import com.baidu.xuper.api.Account;
 import com.baidu.xuper.api.Transaction;
 import com.baidu.xuper.api.XuperClient;
+import com.baidu.xuper.pb.XchainOuterClass;
 import com.dsltyyz.bundle.common.response.CommonResponse;
 import com.dsltyyz.xuper.xuperchain.component.XuperComponent;
 import com.dsltyyz.xuper.xuperchain.vo.AccountVO;
+import com.google.protobuf.ByteString;
 import io.jsonwebtoken.lang.Assert;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,8 +60,8 @@ public class XuperchainController {
         return new CommonResponse<>("XC" + contractAccountName + "@xuper");
     }
 
-    @ApiOperation(value = "获取合约账户余额")
-    @GetMapping("contractAccount/balance")
+    @ApiOperation(value = "获取账户余额")
+    @GetMapping("account/balance")
     public CommonResponse<BigInteger> getBalance(@RequestParam String contractAccount) {
         XuperClient client = xuperComponent.getClient();
         return new CommonResponse<>(client.getBalance(contractAccount));
@@ -68,11 +76,11 @@ public class XuperchainController {
 
     @ApiOperation(value = "向合约账户余额转账")
     @PutMapping("contractAccount/balance")
-    public CommonResponse transferContractAccountBalance(@RequestParam String mnemonic, @RequestParam String contractAccount, @RequestParam BigInteger amount, @RequestParam String fee) {
+    public CommonResponse<String> transferContractAccountBalance(@RequestParam String mnemonic, @RequestParam String contractAccount, @RequestParam BigInteger amount, @RequestParam String fee) {
         Account account = Account.retrieve(mnemonic, 2);
         XuperClient client = xuperComponent.getClient();
-        client.transfer(account, contractAccount, amount, fee);
-        return new CommonResponse();
+        Transaction transfer = client.transfer(account, contractAccount, amount, fee);
+        return new CommonResponse<>(transfer.getTxid());
     }
 
     /*@ApiOperation(value = "合约账户部署合约")
@@ -112,6 +120,25 @@ public class XuperchainController {
         System.out.println("response: " + tx.getContractResponse().getBodyStr());
         System.out.println("gas: " + tx.getGasUsed());
         return new CommonResponse<>(tx.getContractResponse().getBodyStr());
+    }
+
+    @ApiOperation(value = "查询事务")
+    @GetMapping("tx/{txId}")
+    public CommonResponse<String> queryTx(@PathVariable String txId){
+        XuperClient client = xuperComponent.getClient();
+        XchainOuterClass.Transaction tx = client.queryTx(txId);
+        //部分源数据需要进行Hex加密再转字符串
+        byte[] encode = Hex.encode(tx.getBlockid().toByteArray());
+        return new CommonResponse<>(new String(encode));
+    }
+
+    @ApiOperation(value = "查询事务")
+    @GetMapping("block/{blockId}")
+    public CommonResponse<String> queryBlock(@PathVariable String blockId) {
+        XuperClient client = xuperComponent.getClient();
+        XchainOuterClass.InternalBlock internalBlock = client.queryBlock(blockId);
+        //部分源数据需要进行Hex加密再转字符串
+        return new CommonResponse<>(new String(internalBlock.getProposer().toByteArray()));
     }
 
 }
