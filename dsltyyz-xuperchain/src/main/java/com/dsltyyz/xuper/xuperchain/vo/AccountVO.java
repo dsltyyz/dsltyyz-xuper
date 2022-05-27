@@ -13,9 +13,6 @@ public class AccountVO implements Serializable {
     @ApiModelProperty(value = "地址")
     private String address;
 
-    @ApiModelProperty(value = "合约账户")
-    private String contractAccount;
-
     @ApiModelProperty(value = "助记词")
     private String mnemonic;
 }

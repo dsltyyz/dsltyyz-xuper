@@ -79,7 +79,7 @@ public class XuperchainController {
     @PostMapping("contractAccount/contract")
     public CommonResponse deployContract(@RequestParam String contractAccount) {
         XuperClient client = xuperComponent.getClient();
-//        client.deployWasmContract()
+        //client.deployWasmContract()
         return new CommonResponse();
     }*/
 

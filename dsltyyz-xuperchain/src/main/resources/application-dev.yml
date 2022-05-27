@@ -14,5 +14,5 @@ spring:
         max-idle: 10      # 连接池中的最大空闲连接
         min-idle: 5       # 连接池中的最小空闲连接
 xuper:
-  client: 192.168.125.15:37101
-  account-mnemonic: mechanic fragile breeze enhance velvet inform test hawk child fault scrub call
+  client: 47.108.193.111:37101
+  account-mnemonic: mirror spell modify rose moon outer family company quality pelican help can
