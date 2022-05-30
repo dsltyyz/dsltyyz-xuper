@@ -64,6 +64,7 @@ cd output
 sh control.sh start
 ./bin/xchain-cli status
 #4.2多节点
+make
 make testnet
 cd ./testnet/node1
 sh ./control.sh start
