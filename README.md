@@ -657,7 +657,7 @@ public class XuperchainController {
         return new CommonResponse<>(new String(encode));
     }
 
-    @ApiOperation(value = "查询事务")
+    @ApiOperation(value = "查询区块")
     @GetMapping("block/{blockId}")
     public CommonResponse<String> queryBlock(@PathVariable String blockId) {
         XuperClient client = xuperComponent.getClient();
