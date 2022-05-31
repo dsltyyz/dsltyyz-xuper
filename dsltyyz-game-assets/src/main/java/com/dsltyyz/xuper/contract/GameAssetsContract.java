@@ -78,7 +78,7 @@ public class GameAssetsContract implements Contract {
             map.put(TYPE_JSON_DATA, new String(next.getValue()));
             list.add(map);
         }
-        return Response.ok(JSONArray.toJSONString(list).getBytes());
+        return Response.ok(JSONArray.toJSONBytes(list));
     }
 
     @ContractMethod
@@ -139,7 +139,7 @@ public class GameAssetsContract implements Contract {
             map.put(TYPE_JSON_DATA, new String(typeJsonData));
             list.add(map);
         }
-        return Response.ok(JSONArray.toJSONString(list).getBytes());
+        return Response.ok(JSONArray.toJSONBytes(list));
     }
 
     @ContractMethod
