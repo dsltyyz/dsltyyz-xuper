@@ -1,6 +1,6 @@
 # 百度超级链-baidu xuperchain
-**官方文档 [传送门](https://xuper.baidu.com/n/xuperdoc/index.html)** 
-## 1.环境安装
+>官方文档 [传送门](https://xuper.baidu.com/n/xuperdoc/index.html)
+## 1 环境安装
 ### 1.1 系统及语言
 ~~~
 操作系统 centos7
@@ -11,16 +11,19 @@
 ~~~
 #1.安装
 yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel
+
 #2.查看版本
 java -version
 ~~~
 ### 1.3 go语言编译环境 
-**go1.18.2.linux-amd64.tar.gz [传送门](https://golang.google.cn/dl)**
+>go1.18.2.linux-amd64.tar.gz [传送门](https://golang.google.cn/dl)
 ~~~
 #1.解压
 tar -C /usr/local -zxf go1.18.2.linux-amd64.tar.gz
+
 #2.创建文件夹gopath
 mkdir /home/gopath
+
 #3.配置环境变量
 vi /etc/profile
 末尾追加
@@ -29,11 +32,14 @@ export GO111MODULE=on
 export GOROOT=/usr/local/go 
 export GOPATH=/home/gopath
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 #4.刷新配置
 source /etc/profile
+
 #5.查看go版本
 go version
 #go version go1.18.2 linux/amd64
+
 #6.配置代理
 go env -w GOPROXY=https://goproxy.cn,direct
 go env
@@ -42,19 +48,23 @@ go env
 ~~~
 #1.安装
 yum -y install gcc gcc-c++ kernel-devel
+
 #2.查看版本
 gcc -v
 #gcc version 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC)
 ~~~
 ### 1.5 xuperchain环境
-**xuperchain-release-v5.2.zip [传送门](https://github.com/xuperchain/xuperchain/tree/master)**
+>xuperchain-release-v5.2.zip [传送门](https://github.com/xuperchain/xuperchain/tree/master)
 ~~~
 #1.解压
 unzip xuperchain-release-v5.2.zip
+
 #2.修改文件夹名称
+
 mv xuperchain-release-v5.2 xuperchain
 #3.进入目录并编译
 cd xuperchain
+
 #4.启动
 #4.1单机版
 #Go版本1.11 or later先调用make test安装依赖
@@ -63,6 +73,7 @@ make
 cd output
 sh control.sh start
 ./bin/xchain-cli status
+
 #4.2多节点
 make
 make testnet
@@ -76,7 +87,7 @@ sh ./control.sh start
 ./bin/xchain-cli status -H :37102
 ./bin/xchain-cli status -H :37103
 ~~~
-## 2.xuper配置
+## 2 xuper配置
 ### 2.1 创建新账号
 ~~~
 bin/xchain-cli account newkeys --output data/bob
@@ -91,7 +102,7 @@ bin/xchain-cli account new --account 1111111111111111 --fee 2000
 #address: TeyyPLpp9L7QAcxHangtcHTu7HUZ6iydY
 #account name: XC1111111111111111@xuper
 ~~~
-## 3.xuper资源
+## 3 xuper资源
 ### 3.1 查询资源余额
 ~~~
 #查询普通账户
@@ -116,7 +127,7 @@ bin/xchain-cli tx query 5bad209b52264a60ede1ae7a51db184a4db7874707f7c1e65ad56103
 ~~~
 bin/xchain-cli block 0c19b72f12611ad37314bae8562be217f00cdae8090bcf8b8a9bf317c4354c2c -H 127.0.0.1:37101
 ~~~
-## 4.JAVA合约
+## 4 JAVA合约示例（官方cpp游戏资产合约）
 ### 4.1 pom.xml
 ~~~
 <?xml version="1.0" encoding="UTF-8"?>
@@ -393,15 +404,15 @@ public class GameAssetsContract implements Contract {
     }
 }
 ~~~
-### 4.3打包
+### 4.3 打包
 ~~~
 mvn clean package -DskipTests
 #生成如下2个jar 选用带with-dependencies的jar
 #dsltyyz-game-assets-1.0.0.jar
 #dsltyyz-game-assets-1.0.0-jar-with-dependencies.jar
 ~~~
-## 5.发布及升级
-建议将jar放在xuperchain/output目录下 简化指令
+## 5 发布及升级
+>建议将jar放在xuperchain/output目录下 简化指令
 ### 5.1 发布
 ~~~
 ./bin/xchain-cli native deploy --account XC1111111111111111@xuper --fee 15587517 --runtime java --cname javagameassets dsltyyz-game-assets-1.0.0-jar-with-dependencies.jar -a '{"admin":"admin"}'
@@ -413,7 +424,7 @@ mvn clean package -DskipTests
 #不需要指定初始化参数
 ./bin/xchain-cli native upgrade --account XC1111111111111111@xuper --fee 15587517 --cname javagameassets dsltyyz-game-assets-1.0.0-jar-with-dependencies.jar
 ~~~
-## 6.JAVA调用合约示例
+## 6 JAVA调用合约示例
 ### 6.1 pom.xml
 ~~~
 <dependencies>
@@ -545,7 +556,7 @@ public class GameAssetsController {
     }
 }
 ~~~
-## 7.基础操作实例
+## 7 基础操作示例
 ~~~
 @Api(value = "超级链controller", tags = {"超级链"})
 @RestController
@@ -657,3 +668,124 @@ public class XuperchainController {
 
 }
 ~~~
+## 8 xbench压测
+>xbench-master.zip [传送门](https://github.com/xuperchain/xbench)
+### 8.1 配置
+>官方文档 [传送门](https://xuper.baidu.com/n/xuperdoc/advanced_usage/performance_introduction.html)
+#### 8.1.1 xuperchain配置
+分别对node1,node2,node3操作 
+~~~
+#最新版本不用修改 默认为true
+cd node1
+vi conf/env.yaml
+#metricSwitch: true #开启监控
+
+#示例使用 xpos 共识
+cp data/genesis/xpos.json data/genesis/xuper.json
+vi data/genesis/xuper.json
+#nofee: true
+sh ./control.sh stop 
+sh ./control.sh start
+~~~
+#### 8.1.2 转账给xbench账户
+1.目录xbench/output/data/bank/address
+~~~
+cat /home/xbench/output/data/bank/address
+#dw3RjnTe47G4u6a6hHWCfEhtaDkgdYWTE
+~~~ 
+2.进入node1节点并转账
+~~~
+cd /home/xuperchain/testnet/node1
+./bin/xchain-cli transfer --to dw3RjnTe47G4u6a6hHWCfEhtaDkgdYWTE --amount 1000000000000
+~~~
+### 8.2 xbench编译及运行
+#### 8.2.1 编译
+~~~
+#官方指令
+mv xbench-master xbench
+cd xbench
+make
+#go: github.com/xuperchain/crypto@v0.0.0-20211221122406-302ac826ac90: missing go.sum entry; to add it:
+# 	go mod download github.com/xuperchain/crypto
+#报错啦 下载依赖包
+go mod tidy
+#再次编译
+make
+#进入输出目录
+cd output
+~~~
+#### 8.2.2 测试用例
+##### 8.2.2.1 transfer: 转账压测，通过调用sdk生成交易数据
+~~~
+bin/xbench --config=conf/transfer.yaml
+~~~
+##### 8.2.2.2 evidence: 存证压测，离线生成存证数据，存证数据存放在desc字段
+~~~
+#修改xchain配置为nofee模式, 设置data/genesis/xuper.json中nofee 字段为true
+bin/xbench --config=conf/evidence.yaml
+#Error distribution:
+#   [500000]   rpc error: code = Unknown desc = Err:500-50403-tx not enough
+~~~
+##### 8.2.2.3 transaction: 转账压测，离线生成交易数据，没有进行 SelectUTXO
+~~~
+bin/xbench --config=conf/transaction.yaml
+~~~
+##### 8.2.2.4 counter: counter合约压测，调用sdk生成数据
+~~~
+bin/xbench --config=conf/contract/counter.yaml
+~~~
+##### 8.2.2.5 short_content: short_content存证合约压测，调用sdk生成数据
+~~~
+bin/xbench --config=conf/contract/short_content.yaml
+~~~
+##### 8.2.2.6 file: 文件压测，读取文件中的数据进行压测，tx数据是json格式，要求每个并发一个独立的文件
+~~~
+bin/xbench --config=conf/file.yaml
+#generate: type=file, concurrency=100 path=./data/transaction
+#get provider error: init generator error: generate read dir error: open ./data/transaction: no such file or directory, benchmark=file
+~~~
+### 8.3 Prometheus + Grafana 的配置与启动
+>官方文档 [传送门](https://xuper.baidu.com/n/xuperdoc/advanced_usage/monitor_usage.html)
+#### 8.3.1 Prometheus下载安装，配置及启动
+>prometheus-2.36.0.linux-amd64.tar.gz [传送门](https://prometheus.io/download/)
+~~~
+#解压
+tar -zvxf prometheus-2.36.0.linux-amd64.tar.gz
+mv prometheus-2.36.0.linux-amd64 prometheus
+cd prometheus
+mv prometheus.yml prometheus.yml.bak
+cp /home/xbench/output/conf/metric/prometheus.yml prometheus.yml
+
+#修改xchain对应节点及端口号
+vi prometheus.yml
+#- '127.0.0.1:37201'
+#- '127.0.0.1:37202'
+#- '127.0.0.1:37203'
+
+./prometheus
+netstat -anptu | grep prometheus
+#tcp6       0      0 :::9090                 :::*                    LISTEN      170292/./prometheus
+#访问http://内网IP:9090/
+#默认账号 admin admin 初次登陆重设密码123456
+~~~
+查询参数
+- xuperos_common_call_method_seconds：调用方法监控，可以查看到每个函数的数据；
+- xuperos_contract_invoke：合约调用相关监控项；
+- xuperos_ledger：账本相关数据监控项；
+- xuperos_network：网络相关监控项。
+#### 8.3.1 Grafana下载安装，启动及配置
+>grafana-enterprise-8.5.3.linux-amd64.tar.gz [传送门](https://grafana.com/grafana/download)
+~~~
+#解压
+tar -zxvf grafana-enterprise-8.5.3.linux-amd64.tar.gz
+mv grafana-8.5.3/ grafana
+cd grafana
+#启动
+bin/grafana-server start
+#访问http://内网IP:3000/
+~~~
+- 配置prometheus
+  - Configuration=>Data sources=>Add data source=>Prometheus=>URL(http://localhost:9090) =>Save & test
+- 配置Dashboard
+  - Create=>Import=>xchain=>配置json=>Load
+>官方Dashboard JSON [传送门](https://github.com/xuperchain/xbench/blob/master/conf/metric/grafana-xchain.json)
