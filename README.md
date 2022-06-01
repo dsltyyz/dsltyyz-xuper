@@ -708,6 +708,7 @@ make
 #go: github.com/xuperchain/crypto@v0.0.0-20211221122406-302ac826ac90: missing go.sum entry; to add it:
 # 	go mod download github.com/xuperchain/crypto
 #报错啦 下载依赖包
+#官方 go mod download all
 go mod tidy
 #再次编译
 make
