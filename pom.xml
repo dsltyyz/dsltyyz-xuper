@@ -44,7 +44,7 @@
         <feign-form-spring.version>3.8.0</feign-form-spring.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <knife4j.version>3.0.3</knife4j.version>
-        <xuper.version>0.2.0</xuper.version>
+        <xuper.version>0.3.0</xuper.version>
 
         <!--插件-->
         <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>

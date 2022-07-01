@@ -432,7 +432,7 @@ mvn clean package -DskipTests
     <dependency>
         <groupId>com.baidu.xuper</groupId>
         <artifactId>xuper-java-sdk</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
     </dependency>
     ...
 </dependencies>
@@ -608,13 +608,44 @@ public class XuperchainController {
         return new CommonResponse<>(transfer.getTxid());
     }
 
-    /*@ApiOperation(value = "合约账户部署合约")
+     @ApiOperation(value = "合约账户部署合约")
     @PostMapping("contractAccount/contract")
-    public CommonResponse deployContract(@RequestParam String contractAccount) {
+    public CommonResponse deployContract(@RequestParam String mnemonic, @RequestParam String contractAccount, @RequestParam("contractName") String contractName, @RequestPart("file") MultipartFile file, @RequestParam String param) throws IOException {
+        Map<String, byte[]> args = new HashMap<>();
+        if (!StringUtils.isEmpty(param)) {
+            JSONObject.parseObject(param, new TypeReference<Map<String, String>>() {
+            }).forEach((k, v) -> {
+                args.put(k, v.getBytes());
+            });
+        }
         XuperClient client = xuperComponent.getClient();
-        //client.deployWasmContract()
+        //1.请确保合约账户属于当前账户
+        //2.请确保账户及合约账户下有足够余额
+        Account account = Account.retrieve(mnemonic, 2);
+        account.setContractAccount(contractAccount);
+        //native支持java及go
+        Transaction contract = client.deployNativeContract(account, file.getBytes(), contractName, "java", args);
+        System.out.println(contract.getTxid());
+        System.out.println(contract.getGasUsed());
+        System.out.println(JSONObject.toJSONString(contract.getContractResponse()));
         return new CommonResponse();
-    }*/
+    }
+
+    @ApiOperation(value = "合约账户升级部署合约")
+    @PutMapping("contractAccount/contract")
+    public CommonResponse upgradeContract(@RequestParam String mnemonic, @RequestParam String contractAccount, @RequestParam("contractName") String contractName, @RequestPart("file") MultipartFile file) throws IOException {
+        XuperClient client = xuperComponent.getClient();
+        //1.请确保合约账户属于当前账户
+        //2.请确保账户及合约账户下有足够余额
+        Account account = Account.retrieve(mnemonic, 2);
+        account.setContractAccount(contractAccount);
+        //native支持java及go
+        Transaction contract = client.upgradeNativeContract(account, file.getBytes(), contractName);
+        System.out.println(contract.getTxid());
+        System.out.println(contract.getGasUsed());
+        System.out.println(JSONObject.toJSONString(contract.getContractResponse()));
+        return new CommonResponse();
+    }
 
     @ApiOperation(value = "合约账户调用合约")
     @PostMapping("contract/{contract}/{method}")

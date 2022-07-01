@@ -15,4 +15,4 @@ spring:
         min-idle: 5       # 连接池中的最小空闲连接
 xuper:
   client: 47.108.193.111:37101
-  account-mnemonic: mirror spell modify rose moon outer family company quality pelican help can
+  account-mnemonic: state alter divide volcano insect artwork bundle rubber dose renew goose camp
